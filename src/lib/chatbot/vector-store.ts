@@ -59,6 +59,10 @@ export class VectorStore {
     this.save();
   }
 
+  isEmpty(): boolean {
+    return this.data.length === 0;
+  }
+
   async add(doc: EmbeddingDocument) {
     this.data.push(doc);
     this.save();

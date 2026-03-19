@@ -219,7 +219,14 @@ export class ChatbotService {
     const globalAny: any = global;
     if (globalAny.__DOCS_SYNCED__) return;
     
-    console.log('🚀 Triggering automatic documentation sync...');
+    // Check if we already have data in the local store
+    if (!vectorStore.isEmpty()) {
+      console.log('💡 Vector Store already populated. Skipping auto-sync.');
+      globalAny.__DOCS_SYNCED__ = true;
+      return;
+    }
+    
+    console.log('🚀 Triggering automatic documentation sync (Empty store detected)...');
     globalAny.__DOCS_SYNCED__ = true;
     
     try {
