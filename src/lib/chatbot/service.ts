@@ -69,10 +69,17 @@ export class ChatbotService {
       ${relevantContext}
     `;
 
-    const chatHistory: Content[] = history.map(h => ({
-      role: h.role === 'user' ? 'user' : 'model',
-      parts: [{ text: h.content }],
-    }));
+    // Convert history to Gemini format (user -> user, assistant -> model)
+    // IMPORTANT: Gemini requires the history to start with a 'user' role
+    const chatHistory: Content[] = history
+      .map(h => ({
+        role: h.role === 'user' ? 'user' : 'model' as any,
+        parts: [{ text: h.content }],
+      }));
+
+    // Find the first user message index to ensure it starts with 'user'
+    const firstUserIndex = chatHistory.findIndex(h => h.role === 'user');
+    const validHistory = firstUserIndex !== -1 ? chatHistory.slice(firstUserIndex) : [];
 
     const model = this.genAI.getGenerativeModel({
       model: 'gemini-3.1-flash-lite-preview',
@@ -83,7 +90,7 @@ export class ChatbotService {
     });
 
     const chat = model.startChat({
-      history: chatHistory,
+      history: validHistory,
     });
 
     try {
