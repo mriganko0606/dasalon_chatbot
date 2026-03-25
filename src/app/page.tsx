@@ -17,6 +17,7 @@ export default function ChatbotPage() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Auto-scroll to bottom on new messages
   useEffect(() => {
@@ -30,6 +31,9 @@ export default function ChatbotPage() {
 
     const userMsg = input.trim();
     setInput('');
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+    }
     setMessages(prev => [...prev, { role: 'user', content: userMsg }]);
     setLoading(true);
 
@@ -94,7 +98,7 @@ export default function ChatbotPage() {
                     {m.content}
                   </ReactMarkdown>
                 ) : (
-                  m.content
+                  <div className="whitespace-pre-wrap">{m.content}</div>
                 )}
               </div>
             </div>
@@ -114,19 +118,30 @@ export default function ChatbotPage() {
         <footer className="p-5 border-t border-white/10 bg-black/40">
           <form 
             onSubmit={(e) => { e.preventDefault(); handleSend(); }}
-            className="relative flex items-center"
+            className="relative flex items-end gap-2"
           >
-            <input
-              type="text"
+            <textarea
+              ref={textareaRef}
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={(e) => {
+                setInput(e.target.value);
+                e.target.style.height = 'auto';
+                e.target.style.height = `${e.target.scrollHeight}px`;
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSend();
+                }
+              }}
               placeholder="Type your question about daSalon..."
-              className="w-full rounded-2xl bg-white/5 border border-white/10 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all text-white placeholder-white/30"
+              rows={1}
+              className="w-full rounded-2xl bg-white/5 border border-white/10 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all text-white placeholder-white/30 resize-none max-h-48 overflow-y-auto custom-scrollbar"
             />
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="absolute right-2 px-6 py-2 bg-indigo-500 hover:bg-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl transition-all font-medium text-sm shadow-lg shadow-indigo-500/20"
+              className="mb-1 px-6 py-2 bg-indigo-500 hover:bg-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl transition-all font-medium text-sm shadow-lg shadow-indigo-500/20 whitespace-nowrap"
             >
               {loading ? '...' : 'Send'}
             </button>
