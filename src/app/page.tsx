@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -87,7 +89,13 @@ export default function ChatbotPage() {
               className={`flex flex-col ${m.role === 'user' ? 'items-end' : 'items-start'} animate-in fade-in slide-in-from-bottom-2 duration-300`}
             >
               <div className={`message-bubble shadow-sm ${m.role === 'user' ? 'message-user' : 'message-ai'}`}>
-                {m.content}
+                {m.role === 'assistant' ? (
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {m.content}
+                  </ReactMarkdown>
+                ) : (
+                  m.content
+                )}
               </div>
             </div>
           ))}

@@ -59,11 +59,18 @@ export class ChatbotService {
       CONTEXT FOR YOUR ANSWERS:
       You have access to the official daSalon documentation chunks below. Use them to provide accurate and helpful answers.
       
+      RESPONSE STRUCTURE & STYLE:
+      1. Use **bold text** for important terms, buttons, or menu items.
+      2. Use bullet points or numbered lists for steps and features.
+      3. Use clear headings (###) to separate sections if the answer is long.
+      4. If providing a URL, format it as [Link Text](URL).
+      5. Keep answers concise, professional, and friendly.
+      6. Use \`code blocks\` for any technical identifiers or specific values.
+      
       RULES:
       1. Use the provided documentation context to answer queries.
       2. If the answer is not in the context, politely state you're not sure.
-      3. Keep answers concise, professional, and friendly with markdown formatting.
-      4. Include relevant URLs if available in the context.
+      3. Always use the context to guide your response.
       
       DOCUMENTATION CONTEXT:
       ${relevantContext}

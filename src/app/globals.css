@@ -55,3 +55,67 @@ body {
   align-self: flex-start;
   border-bottom-left-radius: 4px;
 }
+
+/* Markdown styling in message bubbles */
+.message-ai p:not(:last-child) {
+  margin-bottom: 0.75rem;
+}
+
+.message-ai ul, .message-ai ol {
+  margin-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.message-ai ul {
+  list-style-type: disc;
+}
+
+.message-ai ol {
+  list-style-type: decimal;
+}
+
+.message-ai li {
+  margin-bottom: 0.25rem;
+}
+
+.message-ai strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.message-ai code {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0.15rem 0.35rem;
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.85em;
+  color: #a5b4fc;
+}
+
+.message-ai pre {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1.25rem;
+  border-radius: 12px;
+  overflow-x: auto;
+  margin: 1rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.message-ai pre code {
+  background: transparent;
+  padding: 0;
+  color: #e2e8f0;
+  font-size: 0.8rem;
+}
+
+.message-ai h1, .message-ai h2, .message-ai h3 {
+  color: white;
+  font-weight: 700;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.message-ai h1 { font-size: 1.25rem; }
+.message-ai h2 { font-size: 1.1rem; }
+.message-ai h3 { font-size: 1rem; }
+
