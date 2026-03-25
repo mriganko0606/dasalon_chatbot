@@ -69,7 +69,7 @@ export class ChatbotService {
       
       RULES:
       1. Use the provided documentation context to answer queries.
-      2. If the answer is not in the context, politely state you're not sure.
+      2. If the answer is not in the context, politely state you're not sure and suggest that the user raise a ticket from the customer care page in daSalon.
       3. Always use the context to guide your response.
       
       DOCUMENTATION CONTEXT:
